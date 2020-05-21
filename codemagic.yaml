@@ -1,0 +1,34 @@
+# Automatically generated on 2020-05-21 UTC from https://codemagic.io/app/5ebbc6dfd5ac071c5ed077e4/settings
+# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
+
+workflows:
+  default-workflow:
+    name: Default Workflow
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - cd $FCI_BUILD_DIR
+      - npm --version
+      - node --version
+      - npm install npm
+      - npm install 
+      - brew install watchman
+      - brew install flow
+      - npm install -g react-native-cli
+      - react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - build/web.zip
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - dreamcodesoft@gmail.com
